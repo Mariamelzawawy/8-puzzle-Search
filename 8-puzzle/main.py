@@ -9,11 +9,11 @@ from Hillclimbing import hill_climbing
 
 initial_state = (1,2,3,4,0,6,7,5,8)
 
-# Wrapper لتتبع عدد الـ nodes ووقت التنفيذ
-def run_algorithm(name, func, optimal_length):
-    nodes_expanded = [0]  # نستخدم قائمة لتعديلها داخل الخوارزمية
 
-    # تعديل الخوارزمية لقبول counter
+def run_algorithm(name, func, optimal_length):
+    nodes_expanded = [0] 
+
+    
     def wrapper(state):
         start = time.time()
         solution = func(state, counter=nodes_expanded)
@@ -33,14 +33,13 @@ def run_algorithm(name, func, optimal_length):
             "Steps": steps,
             "Time(ms)": round(time_ms, 2),
             "Nodes Expanded": nodes_expanded[0],
-            "Space Used": nodes_expanded[0],  # تقريباً نفس nodes expanded
+            "Space Used": nodes_expanded[0],  
             "Path Cost": path_cost,
             "Optimal": is_optimal
         }
 
     return wrapper(initial_state)
 
-# تحديث كل الخوارزميات لتقبل counter
 def bfs_counter(state, counter=None):
     from collections import deque
     queue = deque()
@@ -165,10 +164,10 @@ def hill_climbing_counter(state, counter=None):
         current = next_state
         path.append(action)
 
-# أولاً نحسب الحل الأمثل باستخدام BFS
+
 optimal_solution_length = len(bfs_counter(initial_state, counter=[0]))
 
-# Dictionary للربط
+
 algorithms = {
     "BFS": bfs_counter,
     "DFS": dfs_counter,
@@ -193,5 +192,6 @@ for name, metrics in results.items():
         name, metrics["Steps"], metrics["Time(ms)"], metrics["Nodes Expanded"],
         metrics["Space Used"], metrics["Path Cost"], metrics["Optimal"]
     ))
+
 
 
